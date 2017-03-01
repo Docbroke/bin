@@ -1,0 +1,11 @@
+#!/bin/bash
+
+shopt -s lastpipe 
+
+cd ~/mount
+echo * | read dir 
+
+for i in $dir
+    do fusermount -u $i
+done
+rmdir ~/mount/*
