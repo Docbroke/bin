@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo -n "Choose an option and press [ENTER]
+    (p) Poweroff
+    (r) Reboot
+    (l) Lock
+    (s) Suspend
+    (e) exit i3
+    (x) do nothing
+» "
+
+read -n 1 option
+case $option in
+    p) systemctl poweroff ;;
+    r) systemctl reboot ;;
+    l) slock ;;
+    s) systemctl suspend ;;
+    e) i3-msg exit ;;
+    x) exit ;;
+esac
