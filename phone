@@ -1,0 +1,10 @@
+#!/bin/bash
+## mount android phone with mtp, with simple-mtpfs ##
+
+[[ -d ~/mount ]] || mkdir ~/mount
+cd ~/mount
+
+for d in $(simple-mtpfs --list-devices | awk '{ print $1 }')
+    do [[ -d $d ]] || mkdir "$d"
+    simple-mtpfs --device $d $d
+done
