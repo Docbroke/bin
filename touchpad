@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#xinput device id for touchpad
+touchpad="AlpsPS/2 ALPS GlidePoint"
+
+# enable touchpad
+ON() {
+xinput enable "$touchpad"  && notify-send "touchpad enabled"
+}
+
+# disable touchpad
+OFF() {
+xinput disable "$touchpad" && notify-send "touchpad disabled"
+}
+
+# get status of touchpad
+status=$(xinput list-props "$touchpad" | awk '/Device Enabled/ { print $4 }')
+
+# toggle touchpad status
+if [[ $status == 0 ]]; then
+ ON
+else
+ OFF
+fi
