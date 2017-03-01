@@ -1,0 +1,18 @@
+#!/bin/bash
+
+select ops in "clean orphans" "clean cache" exit ; do
+    case $ops in
+	"clean orphans") 
+	    [[ -n $(pacman -Qdt) ]] && sudo pacman -Rsn $(pacman -Qdtq) || echo "no orphans to remove"
+	    ;;
+	"clean cache")
+	    echo "removing all uninstalled packages from cache"
+	    paccache -ruk0
+	    echo "removing older cached versions of all packages except latest 3"
+	    paccache -r
+	    ;;
+	exit)
+	    echo "bye" && break
+	    ;;
+    esac
+done
