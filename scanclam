@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "IMPORTANT: cd to the directory to be scanned before starting scan"
+
+echo -n	"   s) scan
+	    u) update database
+#? "
+
+read ops
+
+case $ops in
+    s) clamscan --recursive --infected --phishing-sigs=yes --move=/home/sharad/.viruses ;;
+    u) sudo freshclam ;;
+esac
+#--remove=yes
+#--detect-pua=yes 

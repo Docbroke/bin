@@ -1,0 +1,14 @@
+#!/bin/bash
+
+shopt -s lastpipe
+pactl list sinks | awk -FMute: '{printf $2 }' | read -a mute
+
+if [ ${mute[0]} == no ]; then echo -e 
+fi
+
+#if [ ${mute} == yes ]; then echo -e 
+#fi
+
+## alternative ##
+
+# amixer get Master | awk -F'[]%[]' '/%/ {if ($5 == "off") { print "muted" } else { printf sprintf($2)}}'

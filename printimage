@@ -1,0 +1,35 @@
+#!/bin/bash
+
+## for details goto CUPS server, command line options ##
+
+## choosing a printer ##
+# lpstat -p -d
+
+## for options supported by printer ##
+# lpoptions -p printer -l
+
+## orientation of page ##
+# -o orientation-requested=3 - portrait orientation (no rotation)
+# -o orientation-requested=4 - landscape orientation (90 degrees) or -o landscape
+# -o orientation-requested=5 - reverse landscape or seascape orientation (270 degrees)
+# -o orientation-requested=6 - reverse portrait or upside-down orientation (180 degrees)
+
+## page size ##
+# -o media=Custom.WIDTHxLENGTHcm (or in/mm/cm or points if not specified)
+# or media=A4/Legal/Letter
+
+## for scaling the image
+# -o scaling=50 (or 70/100/fit-to-page/ etc)
+
+## range of pages
+# -o page-ranges=1-4,7,9-12
+
+## page margin in points (1 point = 0.35mm) ##
+# -o page-left=value -o page-right=value -o page-top=value -o page-bottom=value
+
+
+## print image to PDF A4 size with fit to page ##
+# use printimage (filename) #
+# stdin=$1
+
+lp -d PDF_Printer -o orientation-requested=3 -o page-left=6 -o page-right=6 -o page-top=6 -o page-bottom=6  -o fit-to-page -o media=A4 $1

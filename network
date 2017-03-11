@@ -1,0 +1,42 @@
+#!/bin/bash
+
+balance() {
+# gammu getussd *112*02#
+sudo wvdial on 2> /dev/null
+sudo wvdial balance 2> /tmp/balance
+
+echo
+awk '/+CUSD:/ {print $7, $8, $11, $12}' < /tmp/balance
+echo
+}
+
+echo -n "
+    choose, what to do with network?
+	ww) startwpa	wx) stopwpa	wm) wifi-menu
+	dd) startdhcpcd	dx) stopdhcpcd
+	bb) bsnl	    b2) bsnl2	ps) pppstatus	px) stopppp
+	uu) unblock  xx) exit
+#?  "
+
+read -n 2 ops
+case $ops in
+    wx)		sudo killall wpa_supplicant;  network ;;
+    dx)		sudo killall dhcpcd; network ;;
+    d|dd)	echo ""
+		sudo dhcpcd -4 wlan0 ;;
+    w|ww)	echo ""
+		[ "(pidof wpa_supplicant)" ] && sudo killall wpa_supplicant && sleep 1
+		sudo wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf; network ;;
+    u|uu)	sudo rfkill unblock all; network ;;
+#	balance)	balance ;;
+    b|bb)	sudo pon bsnl ;;
+    px)		sudo poff -a && network ;;
+    b2)		sudo pon bsnl2 ;;
+    ps)		grep pppd < /var/log/daemon.log && network ;;
+	#journalctl -b --no-pager | grep pppd ;;
+    wm)		echo ""
+		sudo wifi-menu ;;
+    x|xx)	echo ""
+		echo "bye" && exit ;;
+    *)		echo "invalid option"; network ;;
+esac

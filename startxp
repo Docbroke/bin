@@ -1,0 +1,6 @@
+#!/bin/bash
+
+qemu-system-x86_64 -boot d -drive file=/home/sharad/qemu/winxp,format=raw -m 1028 -enable-kvm 
+
+#-net nic -net user,smb=/home/sharad/XPshare
+#-cdrom /home/sharad/Softwares/Office_2010_volume_x86_en-us.iso

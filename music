@@ -1,0 +1,62 @@
+#!/bin/bash
+
+echo -n "Choose your playlist
+	b) bollywood
+	d) dance
+	j) bhajans
+	c) classical
+	v) vocal
+	i) instrumental
+	s) stop
+	x) exit
+» "
+
+read -n 1 ops
+
+    case $ops in 
+	b) 
+	    echo
+	    mpc clear
+	    mpc load bollywood
+	    mpc play
+	    ;;
+	d)
+	    echo
+	    mpc clear
+	    mpc load dance
+	    mpc play
+	    ;;
+	j)
+	    echo
+	    mpc clear
+	    mpc load bhajans
+	    mpc play
+	    ;;
+	c)
+	    echo
+	    mpc clear
+	    mpc load classical
+	    mpc play
+	    ;;
+	v)
+	    echo
+	    mpc clear
+	    mpc load vocal
+	    mpc play
+	    ;;
+	i)
+	    echo
+	    mpc clear
+	    mpc load instrumental
+	    mpc play
+	    ;;
+	s)
+	    echo
+	    mpc stop
+	    echo "music play stopped"
+	    ;;
+	x)
+	    echo
+	    echo "bye" && exit
+	    ;;
+    esac

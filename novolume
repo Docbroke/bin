@@ -1,0 +1,6 @@
+#!/bin/bash
+shopt -s lastpipe
+pactl list sinks | awk -FMute: '{printf $2 }' | read -a mute
+
+if [ ${mute[0]} == yes ]; then echo -e 
+fi

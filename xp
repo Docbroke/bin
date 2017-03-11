@@ -1,0 +1,19 @@
+#!/bin/bash
+
+select ops in mount unmount startxp; do 
+    case $ops in
+    mount)
+	sudo mount -o loop,offset=32256 /home/sharad/qemu/winxp /home/sharad/mount/winxp
+	;;
+    unmount)
+	sudo umount /home/sharad/mount/winxp
+	;;
+    startxp)
+	#qemu-system-x86_64 -boot d -drive file=/home/sharad/qemu/winxp,format=raw -m 1028 -enable-kvm
+	startxp
+	;;
+    esac
+done
+
+#install xp
+#qemu-system-x86_64 -cdrom /home/sharad/Softwares/WinXP/WinXP.iso -boot d -drive file=qemu/winxp,format=raw -m 1028 -enable-kvm
