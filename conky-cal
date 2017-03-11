@@ -1,0 +1,18 @@
+#!/bin/bash
+
+date=$(date '+%F')
+DAY=${date:8:2}
+m="-m" # uncomment this line for starting the week on Monday instead of Sunday.
+cal=$(cal $m)
+prev=$(cal $m $(date '+%-m %Y' --date="${date:0:7}-15 -1 month")|sed 's/ *$//;/^$/d'|tail -1)
+next=$(cal $m $(date '+%-m %Y' --date="${date:0:7}-15 +1 month")|sed '/^ *&/d;1,2d;s/^ *//'|head -1)
+if [ ${#next} == 20 ] ;then next=$'\n'"\${color #999999} $next"
+#if [ ${#next} == 19 ] ;then next=$'\n'"\${color #999999} $next"
+else next="\${color #999999}  $next"
+fi
+if [ ${#prev} == 20 ]; then prev="$prev"$'\n '
+else prev="$prev  "
+fi
+current=$(echo "${cal:42}"|sed -e '/^ *$/d' -e 's/^/ /' -e 's/$/ /' -e 's/^ *1 / 1 /' )
+current=$(echo "$current"|sed -e /" ${DAY/#0/} "/s/" ${DAY/#0/} "/" "'${color orange}'"${DAY/#0/}"'${color f9f9f9}'" "/ -e 's/^ //'     -e 's/ *$//')
+echo -e "\${color ffff00}${cal:0:21}${cal:21:21}\${color #999999}$prev\${color f9f9f9}$current$next"
