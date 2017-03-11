@@ -16,7 +16,7 @@ case $ops in
     s) 
     echo -n "What to scan? :"
     read path
-    clamscan --verbose --infected --phishing-sigs=yes --move=~/.viruses -r $path ;;
+    clamscan --verbose --infected --phishing-sigs=yes --move=$HOME/.viruses -r $path ;;
     u) sudo freshclam ;;
     x) exit ;;
 esac
