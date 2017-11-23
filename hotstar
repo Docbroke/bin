@@ -16,17 +16,3 @@ case $choice in
     w)  echo "KEEP THIS TERMINAL OPEN"
         ssh sharad@docstore youtube-dl -f "$quality" "$url" & ;;
 esac
-
-
-extra () {
-# add to surf config.h
-
-define WATCH {.v = (char *[]){ "/bin/sh", "-c", \
-    "st -e \
-    yt $(xprop -id $0 _SURF_URI | cut -d \\\" -f 2)", \
-    winid, NULL } }
-and in the keys section:
-
-{ MODKEY,               GDK_w,      spawn,      WATCH },
-
-}
