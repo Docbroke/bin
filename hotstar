@@ -8,11 +8,10 @@ url="$1"
 youtube-dl -F "$url"
 echo "choose quality (from first column)"
 read quality
-echo choose "p) play d) download w) download in wdmc"
+echo choose "p) play d) download"
 read -n 1 choice 
 case $choice in
     p) mpv --ytdl-format="$quality" --no-resume-playback "$url" ;;
     d) youtube-dl -f "$quality" "$url" ;;
-    w)  echo "KEEP THIS TERMINAL OPEN"
-        ssh sharad@docstore youtube-dl -f "$quality" "$url" & ;;
+    
 esac
